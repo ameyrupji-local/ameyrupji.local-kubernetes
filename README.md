@@ -63,4 +63,10 @@ Remove Nginx code by running the following commands:
 ## Useful Links
 
 - https://medium.com/containermind/a-beginners-guide-to-kubernetes-7e8ca56420b6
-- 
+- https://8gwifi.org/docs/kube-dash.jsp 
+- https://stackoverflow.com/questions/46664104/how-to-sign-in-kubernetes-dashboard
+
+# TODOs
+
+- https://www.linode.com/docs/applications/containers/how-to-deploy-nginx-on-a-kubernetes-cluster/
+- https://helm.sh/docs/chart_template_guide/#the-chart-template-developer-s-guide
