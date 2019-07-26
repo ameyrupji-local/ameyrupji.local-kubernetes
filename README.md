@@ -54,8 +54,27 @@ Open `http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/https:kuberne
 
 ### Enable Skip option on login page
 
+To grant full admin privileges to Dashboard's Service Account by creating below ClusterRoleBinding run the following command.
 
+`kubectl create -f https://raw.githubusercontent.com/ameyrupji-local/ameyrupji.local-kubernetes-setup/master/kubernetes-dashboard/dashboard-admin.yaml`
 
+f you are using dashboard version v1.10.1 or later, you must also add `--enable-skip-login` to the deployment's command line arguments. You can do so by adding it to the args in `kubectl edit deployment/kubernetes-dashboard --namespace=kube-system`
+
+Example edit:
+
+```
+    containers:
+    - args:
+      - --auto-generate-certificates
+      - --enable-skip-login            # <-- add this line
+      image: k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1
+```
+
+Now running `kubectl proxy` you should see the skip button on the login:
+
+safari-kubernetes-dashboard-skip-login
+
+![safari kubernetes dashboard skip login](images/safari-kubernetes-dashboard-skip-login.png)
 
 Since this is deployed to our private cluster, we need to access it via a proxy. Kube-proxy is available to proxy our requests to the dashboard service. In your workspace, run the following command:
 
