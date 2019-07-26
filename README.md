@@ -51,14 +51,17 @@ Open `http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/https:kuberne
 
 ![safari kubernetes dashboard login](images/safari-kubernetes-dashboard-login.png)
 
+
+### Enable Skip option on login page
+
+
+
+
 Since this is deployed to our private cluster, we need to access it via a proxy. Kube-proxy is available to proxy our requests to the dashboard service. In your workspace, run the following command:
 
 `kubectl proxy --port=8080 --address='0.0.0.0' --disable-filter=true &`
 
 This will start the proxy, listen on port 8080, listen on all interfaces, and will disable the filtering of non-localhost requests.
-
-
-### 
 
 
 <!-- ## Test 
