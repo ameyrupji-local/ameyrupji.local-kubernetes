@@ -76,12 +76,23 @@ safari-kubernetes-dashboard-skip-login
 
 ![safari kubernetes dashboard skip login](images/safari-kubernetes-dashboard-skip-login.png)
 
+
+### Kubernetes Dashboard Access through a proxy
+
 Since this is deployed to our private cluster, we need to access it via a proxy. Kube-proxy is available to proxy our requests to the dashboard service. In your workspace, run the following command:
 
-`kubectl proxy --port=8080 --address='0.0.0.0' --disable-filter=true &`
+`kubectl proxy --port=9080 --address='0.0.0.0' --disable-filter=true &`
 
-This will start the proxy, listen on port 8080, listen on all interfaces, and will disable the filtering of non-localhost requests.
+![terminal kubernetes dashboard proxy](images/terminal-kubernetes-dashboard-proxy.png)
 
+
+This will start the proxy, listen on port 9080, listen on all interfaces, and will disable the filtering of non-localhost requests. Lets test it out by going to the link: `http://localhost:9080/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login`
+
+![safari kubernetes dashboard proxy](images/safari-kubernetes-dashboard-proxy.png)
+
+This url should also be accessible on the local network at `http://ameyrupji.local:9080/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login`
+
+![safari kubernetes dashboard locally](images/safari-kubernetes-dashboard-locally.png)
 
 <!-- ## Test 
 
