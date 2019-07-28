@@ -94,31 +94,50 @@ This url should also be accessible on the local network at `http://ameyrupji.loc
 
 ![safari kubernetes dashboard locally](images/safari-kubernetes-dashboard-locally.png)
 
-<!-- ## Test 
+
+### Setting up Nginx
+
+In the nginx file located at `/usr/local/etc/nginx/nginx.conf` add the following to the server listening at port `80`:
+
+```
+location /k8s/dashboard/ {
+    proxy_pass              http://127.0.0.1:9080/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/;
+
+    proxy_set_header        Host $host;
+    proxy_set_header        X-Real-IP $remote_addr;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header        X-Forwarded-Proto $scheme;
+}
+```
+
+Restart nginx by running commands `sudo nginx -s stop` and `sudo nginx`.
+
+
+## Test 
 
 Open Safari it by going to URL:
-`http://localhost`
+`http://localhost/k8s/dashboard`
 
-![safari nginx port 80](images/safari-nginx-80.png)
+![safari kubernetes dashboard nginx](images/safari-kubernetes-dashboard-nginx.png)
 
-This website should also be accessible over the network from another computer at `http://ameyrupji.local/`
+This website should also be accessible over the network from another computer at `http://ameyrupji.local/k8s/dashboard`
 
-![network safari nginx](images/network-safari-nginx.png)
+![network safari kubernetes dashboard nginx](images/network-safari-kubernetes-dashboard-nginx.png)
 
 
 
 ## Cleanup
 
-To uninstall nginx:
+Remove Nginx code to point to dashboard that was added above.
 
-First stop the nginx server if it is running by:
-`sudo nginx -s stop`
 
-Using brew to uninstall Nginx run the command: 
-`brew uninstall nginx`
-
-Remove Nginx code by running the following commands:
-`rm -f -R /usr/local/nginx` and `rm -f /usr/local/sbin/nginx` -->
+Remove the dashboard by running the following commands:
+```
+kubectl delete replicasets/kubernetes-dashboard -n kube-system
+kubectl delete svc/kubernetes-dashboard -n kube-system
+kubectl delete deployments/kubernetes-dashboard -n kube-system
+kubectl -n kube-system delete $(kubectl -n kube-system get pod -o name | grep dashboard)
+```
 
 
 ## Useful Links
@@ -127,9 +146,5 @@ Remove Nginx code by running the following commands:
 - https://8gwifi.org/docs/kube-dash.jsp 
 - https://stackoverflow.com/questions/46664104/how-to-sign-in-kubernetes-dashboard
 - https://eksworkshop.com
+- https://www.freecodecamp.org/news/learn-kubernetes-in-under-3-hours-a-detailed-guide-to-orchestrating-containers-114ff420e882/
 
-
-# TODOs
-
-- https://www.linode.com/docs/applications/containers/how-to-deploy-nginx-on-a-kubernetes-cluster/
-- https://helm.sh/docs/chart_template_guide/#the-chart-template-developer-s-guide
