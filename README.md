@@ -112,6 +112,9 @@ location /k8s/dashboard/ {
 
 Restart nginx by running commands `sudo nginx -s stop` and `sudo nginx`.
 
+### Install dashboard using Helm 
+
+`helm install --name kubernetes-dashboard ./helm`
 
 ## Test 
 
@@ -124,6 +127,12 @@ This website should also be accessible over the network from another computer at
 
 ![network safari kubernetes dashboard nginx](images/network-safari-kubernetes-dashboard-nginx.png)
 
+
+**Helm** 
+
+URL: `https://localhost:30001/`
+
+![](images/delete-sample-pod-with-node-port.png)
 
 
 ## Cleanup
@@ -139,6 +148,7 @@ kubectl delete deployments/kubernetes-dashboard -n kube-system
 kubectl -n kube-system delete $(kubectl -n kube-system get pod -o name | grep dashboard)
 ```
 
+`helm delete --purge kubernetes-dashboard`
 
 ## Useful Links
 
