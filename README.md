@@ -157,4 +157,4 @@ kubectl -n kube-system delete $(kubectl -n kube-system get pod -o name | grep da
 - https://stackoverflow.com/questions/46664104/how-to-sign-in-kubernetes-dashboard
 - https://eksworkshop.com
 - https://www.freecodecamp.org/news/learn-kubernetes-in-under-3-hours-a-detailed-guide-to-orchestrating-containers-114ff420e882/
-
+- https://joshh.info/2018/kubernetes-dashboard-https-nodeport/
